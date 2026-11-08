@@ -1599,3 +1599,92 @@
     font-family: 'Archivo', sans-serif;
 }
 
+/*Aba Relatórios*/
+.graficos-relatorio{
+    display: flex;
+    gap: 15px;
+}
+/* ==========================================
+   LISTA DE ALUNOS COM FALTAS
+   ========================================== */
+
+.ausencia-wrapper {
+    height: 300px; /* Mantém a mesma altura dos gráficos ao lado */
+    overflow-y: auto; /* Adiciona scroll se tiver muitos alunos */
+    padding-right: 5px; /* Espacinho para a barra de rolagem não colar no texto */
+}
+
+/* Estiliza a barra de rolagem para ficar fina e discreta */
+.ausencia-wrapper::-webkit-scrollbar {
+    width: 6px;
+}
+.ausencia-wrapper::-webkit-scrollbar-thumb {
+    background-color: #d1d5db;
+    border-radius: 4px;
+}
+
+.lista-ausencias {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px; /* Espaço entre os alunos */
+}
+
+.ausencia-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f9fafb; /* Fundo cinza bem clarinho */
+    padding: 12px 15px;
+    border-radius: 8px;
+    border-left: 4px solid #ef4444; /* Borda vermelha de alerta à esquerda */
+    transition: transform 0.2s ease;
+    cursor: pointer;
+}
+
+.ausencia-item:hover {
+    transform: translateX(4px); /* Efeito suave ao passar o mouse */
+    background-color: #f3f4f6;
+}
+
+/* Informações do lado esquerdo (Nome e Plano) */
+.aluno-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.aluno-nome {
+    font-weight: 600;
+    color: #374151;
+    font-size: 1.05rem;
+}
+
+.aluno-plano {
+    font-size: 0.75rem;
+    color: #4b5563;
+    background-color: #e5e7eb;
+    padding: 2px 8px;
+    border-radius: 12px;
+    width: fit-content;
+}
+
+/* Informações do lado direito (Quantidade de Faltas) */
+.aluno-faltas {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* Alinha o texto à direita */
+}
+
+.faltas-num {
+    font-weight: 700;
+    color: #ef4444; /* Vermelho do CT */
+    font-size: 1.1rem;
+}
+
+.faltas-mes {
+    font-size: 0.75rem;
+    color: #6b7280;
+}

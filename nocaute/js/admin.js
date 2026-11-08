@@ -57,3 +57,157 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
+
+
+
+/*ABA Relatórios*/
+if (typeof Chart !== 'undefined') {
+    Chart.defaults.font.family = "'Archivo', sans-serif";
+    Chart.defaults.color = '#6b7280';
+
+    const commonOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { display: false } // Esconde a legenda padrão na maioria
+        },
+        scales: {
+            x: {
+                grid: { display: false }, // Sem linhas verticais
+                border: { display: false }
+            },
+            y: {
+                border: { display: false },
+                grid: {
+                    color: '#f3f4f6', // Cor das linhas horizontais (claras)
+                    drawTicks: false,
+                },
+                ticks: {
+                    padding: 10
+                }
+            }
+        }
+    };
+
+    // ==========================================
+    // 1. Gráfico de Alunos por modalidade
+    // ==========================================
+    const canvasModalidade = document.getElementById('chartModalidade');
+    if (canvasModalidade) {
+        const ctxModalidade = canvasModalidade.getContext('2d');
+        new Chart(ctxModalidade, {
+            type: 'bar',
+            data: {
+                labels: ['Boxe', 'Muay', 'Jiu-Jítsu', 'Funcional', 'Kickboxing'],
+                datasets: [{
+                    data: [], // Gráfico vazio, esperando o Banco de Dados
+                }]
+            },
+            options: {
+                ...commonOptions,
+                plugins: {
+                    legend: {
+                        display: true, // Mostra a legenda neste gráfico
+                        position: 'bottom',
+                        align: 'start',
+                        labels: {
+                            usePointStyle: true, // Bolinhas na legenda
+                            boxWidth: 8
+                        }
+                    }
+                },
+                scales: {
+                    ...commonOptions.scales,
+                    y: {
+                        ...commonOptions.scales.y,
+                        min: 0,
+                        max: 100,
+                        ticks: { stepSize: 25 }
+                    }
+                }
+            }
+        });
+    }
+
+   // ==========================================
+    // 2. Gráfico de Frequência Semanal
+    // ==========================================
+    const canvasFrequencia = document.getElementById('graficoFrequencia');
+    if (canvasFrequencia) {
+        const ctxFrequencia = canvasFrequencia.getContext('2d');
+        new Chart(ctxFrequencia, {
+            type: 'bar',
+            data: {
+                labels: ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+                datasets: [
+                    {
+                        label: 'Esperado',
+                        data: [50, 65, 50, 60, 45, 30],
+                        backgroundColor: '#3b82f6', // AZUL para o esperado
+                        borderWidth: 0,
+                        borderRadius: 4
+                    },
+                    {
+                        label: 'Presenças Reais',
+                        data: [45, 60, 48, 55, 42, 25],
+                        backgroundColor: '#f87171', // VERMELHO para o real
+                        borderWidth: 0,
+                        borderRadius: 4
+                    }
+                ]
+            },
+            options: {
+                ...commonOptions,
+                plugins: {
+                    legend: {
+                        display: true, // Mostra a legenda com as duas cores
+                        position: 'top',
+                        align: 'end',
+                        labels: {
+                            usePointStyle: true, // Bolinhas na legenda
+                            boxWidth: 8
+                        }
+                    }
+                },
+                scales: {
+                    x: commonOptions.scales.x,
+                    y: {
+                        ...commonOptions.scales.y,
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+}
+
+// ==========================================
+    // REDIRECIONAMENTO DOS ALUNOS AUSENTES - ABA RELATÓRIOS PARA ABA ALUNOS
+    // ==========================================
+    const itensAusencia = document.querySelectorAll('.ausencia-item');
+    
+    itensAusencia.forEach(item => {
+        item.addEventListener('click', () => {
+            // 1. Remove a classe 'active' de todas as seções
+            document.querySelectorAll('.view-section').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // 2. Remove a classe 'active' de todos os botões do menu
+            document.querySelectorAll('.sidebar-nav .nav-item').forEach(nav => {
+                nav.classList.remove('active');
+            });
+
+            // 3. Ativa a seção de Alunos
+            const abaAlunos = document.getElementById('view-alunos');
+            if (abaAlunos) {
+                abaAlunos.classList.add('active');
+            }
+
+            // 4. Destaca o botão "Alunos" no menu lateral para o administrador não se perder
+            const botaoMenuAlunos = document.querySelector('.sidebar-nav .nav-item[data-target="view-alunos"]');
+            if (botaoMenuAlunos) {
+                botaoMenuAlunos.classList.add('active');
+            }
+        });
+    });

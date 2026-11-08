@@ -230,38 +230,5 @@ if (elPresencas2) {
     });
 }
 
-// 3. Alunos por modalidade
-const ctxModalidade = document.getElementById('chartModalidade').getContext('2d');
-new Chart(ctxModalidade, {
-    type: 'bar',
-    data: {
-        labels: ['Boxe', 'Muay', 'Jiu-Jítsu', 'Funcional', 'Kickboxing'],
-        datasets: [{
-            data: [], // Gráfico vazio
-        }]
-    },
-    options: {
-        ...commonOptions,
-        plugins: {
-            legend: {
-                display: true, // Mostra a legenda neste gráfico
-                position: 'bottom',
-                align: 'start',
-                labels: {
-                    usePointStyle: true, // Bolinhas na legenda
-                    boxWidth: 8
-                }
-            }
-        },
-        scales: {
-            ...commonOptions.scales,
-            y: {
-                ...commonOptions.scales.y,
-                min: 0,
-                max: 100,
-                ticks: { stepSize: 25 }
-            }
-        }
-    }
-});
+
 }

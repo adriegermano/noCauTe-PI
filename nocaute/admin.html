@@ -165,7 +165,7 @@
                 <h1>Gerenciamento de Aulas</h1>
                 <p>Análise geral das aulas.</p>
             </header>
-                        <div class="cadastro">
+            <div class="cadastro">
                 <button class="btn-cadastrar">Cadastrar Aulas</button>
             </div>
             <p>Chatgpt sugeriu isso:</p>
@@ -179,8 +179,79 @@
                 <li>Editar ou cancelar aulas.</li>
                 <li>Visualizar calendário de atividades.</li>
             </ul>
-            </section>
+        </section>
 
+
+        <section id="view-relatorios" class="view-section">
+            <header class="view-header">
+                <h1>Relatórios</h1>
+                <p>Visão geral de desempenho.</p>
+            </header>
+            <!-- 1º CARD: Modalidade -->
+            <div class="graficos-relatorio">
+                <div class="chart-card relatorio">
+                    <h3 class="chart-title">Alunos por Modalidade</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="chartModalidade"></canvas>
+                    </div>
+                </div>
+
+                <!-- 2º CARD: Frequência -->
+                <div class="chart-card relatorio">
+                    <h3 class="chart-title">Frequência Semanal</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="graficoFrequencia"></canvas>
+                    </div>
+                </div>
+                <div class="chart-card relatorio">
+                    <h3 class="chart-title">Alunos com Alta Taxa de Ausência</h3>
+
+                    <!-- Trocamos o chart-wrapper por uma div específica para a lista -->
+                    <div class="ausencia-wrapper">
+                        <ul class="lista-ausencias">
+
+                            <!-- Item 1 -->
+                            <li class="ausencia-item">
+                                <div class="aluno-info">
+                                    <span class="aluno-nome">João Silva</span>
+                                    <span class="aluno-plano">Plano Trimestral</span>
+                                </div>
+                                <div class="aluno-faltas">
+                                    <span class="faltas-num">8 faltas</span>
+                                    <span class="faltas-mes">neste mês</span>
+                                </div>
+                            </li>
+
+                            <!-- Item 2 -->
+                            <li class="ausencia-item">
+                                <div class="aluno-info">
+                                    <span class="aluno-nome">Maria Oliveira</span>
+                                    <span class="aluno-plano">Plano Mensal</span>
+                                </div>
+                                <div class="aluno-faltas">
+                                    <span class="faltas-num">6 faltas</span>
+                                    <span class="faltas-mes">neste mês</span>
+                                </div>
+                            </li>
+
+                            <!-- Item 3 -->
+                            <li class="ausencia-item">
+                                <div class="aluno-info">
+                                    <span class="aluno-nome">Carlos Eduardo</span>
+                                    <span class="aluno-plano">Plano Semestral</span>
+                                </div>
+                                <div class="aluno-faltas">
+                                    <span class="faltas-num">5 faltas</span>
+                                    <span class="faltas-mes">neste mês</span>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </section>
     </main>
     <script src="js/admin.js"></script>
 </body>
