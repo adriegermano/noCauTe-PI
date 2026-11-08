@@ -178,10 +178,13 @@ function switchTab(type) {
     });
 
     if (submitButton) {
-        submitButton.textContent =
-            type === "aluno"
-                ? "Entrar como Aluno"
-                : "Entrar como Instrutor";
+        if (type === "aluno") {
+            submitButton.textContent = "Entrar como Aluno";
+        } else if (type === "instrutor") {
+            submitButton.textContent = "Entrar como Instrutor";
+        } else if (type === "admin") {
+            submitButton.textContent = "Entrar como Admin";
+        }
 
         submitButton.dataset.type = type;
     }
@@ -207,9 +210,14 @@ document.addEventListener('DOMContentLoaded', () => {
     function firstNameFromEmail(email) {
         const localPart = (email || '').trim().split('@')[0] || '';
         const name = localPart.split(/[._+-]/)[0].toLocaleLowerCase('pt-BR');
-        return name
-            ? name.charAt(0).toLocaleUpperCase('pt-BR') + name.slice(1)
-            : currentProfile === 'instrutor' ? 'Instrutor' : 'Aluno';
+        
+        if (name) {
+            return name.charAt(0).toLocaleUpperCase('pt-BR') + name.slice(1);
+        }
+        
+        if (currentProfile === 'instrutor') return 'Instrutor';
+        if (currentProfile === 'admin') return 'Admin';
+        return 'Aluno';
     }
 
     function storeUserSession(email) {
@@ -224,7 +232,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // 1. Alternar entre Aluno e Instrutor
+    // 1. Alternar entre Aluno, Instrutor e Admin
     profileButtons.forEach(button => {
         button.addEventListener('click', () => {
             profileButtons.forEach(btn => btn.classList.remove('active'));
@@ -235,9 +243,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if (currentProfile === 'aluno') {
                 if (emailInput) emailInput.placeholder = 'aluno@nocaute.com';
                 if (btnSubmitLogin) btnSubmitLogin.textContent = 'Entrar como aluno';
-            } else {
+            } else if (currentProfile === 'instrutor') {
                 if (emailInput) emailInput.placeholder = 'instrutor@nocaute.com';
                 if (btnSubmitLogin) btnSubmitLogin.textContent = 'Entrar como instrutor';
+            } else if (currentProfile === 'admin') {
+                if (emailInput) emailInput.placeholder = 'admin@nocaute.com';
+                if (btnSubmitLogin) btnSubmitLogin.textContent = 'Entrar como admin';
             }
         });
     });
@@ -261,6 +272,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // Redireciona de acordo com o perfil atualmente ativo (currentProfile)
             if (currentProfile === "instrutor") {
                 window.location.href = "instrutor.html";
+            } else if (currentProfile === "admin") {
+                window.location.href = "admin.html";
             } else {
                 window.location.href = "aluno.html";
             }

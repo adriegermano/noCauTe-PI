@@ -123,6 +123,7 @@
     margin-left: 15rem;
     /* Largura da sidebar */
     overflow-y: auto;
+    font-family: 'Archivo', sans-serif; 
 }
 
 .view-section {
@@ -1566,3 +1567,31 @@
 .dashboard-body #btn-salvar-chamada:focus-visible .dashboard-icon-button img {
     filter: brightness(0) invert(1);
 }
+
+
+/*TELAS ADMIN*/
+/*Aba INÍCIO*/
+.stats-grid-adm {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    gap: 16px;
+    width: 100%;
+    font-family: 'Archivo', sans-serif; 
+}
+
+/*Aba Alunos*/
+.cadastro{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    
+}
+
+.btn-cadastrar{
+    padding: 10px;
+    border-radius: 5px;
+    background-color: var(--primary-color);
+    font-weight: 700;
+    font-family: 'Archivo', sans-serif;
+}
+

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>noCauTe - Centro de Treinamento</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link rel="shortcut icon" href="img/icone-nocaute.png" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="dashboard-body">
+
+    <!-- Menu Lateral -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <img src="img/logo-nocaute.png" alt="" class="logo">
+        </div>
+        <nav class="sidebar-nav">
+            <button class="nav-item active" data-target="view-dashboard">
+                <img src="img/svg/icon-inicio.png" alt="" class="icon-sidebar">
+                Início
+            </button>
+            <button class="nav-item" data-target="view-alunos">
+                <img src="img/svg/icon-alunos.png" alt="" class="icon-sidebar">
+                Alunos
+            </button>
+            <button class="nav-item" data-target="view-instrutores">
+                <img src="img/svg/icon-aulas.png" alt="" class="icon-sidebar">
+                Instrutores
+            </button>
+            <button class="nav-item" data-target="view-aulas">
+                <img src="img/svg/icon-turmas.png" alt="" class="icon-sidebar">
+                Aulas
+            </button>
+            <button class="nav-item" data-target="view-presencas">
+                <img src="img/svg/icon-presenca.png" alt="" class="icon-sidebar">
+                Presenças
+            </button>
+            <button class="nav-item" data-target="view-relatorios">
+                <img src="img/svg/icon-relatorio.png" alt="" class="icon-sidebar">
+                Relatórios
+            </button>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="login.html" class="nav-item btn-logout">
+                <img src="img/svg/icon-sair.png" alt="" class="icon-sidebar">
+                Sair
+            </a>
+        </div>
+    </aside>
+
+    <!--Cabeçalho -->
+    <div class="cabecalho">
+        <div class="info-cabecalho">
+            <div id="area">
+                <p style="font-weight: 700;">Área do Administrador</p>
+                <p class="name-academia">CT Fabiano Mineiro</p>
+            </div>
+            <div id="perfil">
+                <p id="perfil-nome">Administrador</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Conteúdo Principal -->
+    <main class="dashboard-main">
+
+        <!-- VISÃO: DASHBOARD -->
+        <section id="view-dashboard" class="view-section active">
+            <header class="view-header">
+                <p>Bem-vindo(a), </p>
+                <h3 id="boas-vindas-nome">Administrador</h3>
+            </header>
+            <div class="stats-grid-adm">
+                <div class="stat-card">
+                    <p class="stat-title">ALUNOS</p>
+                    <h3>Colocar quantidade aqui (Banco de Dados)</h3>
+                    <p class="stat-subtitle">Total de Alunos Cadastrados</p>
+                </div>
+                <div class="stat-card">
+                    <p class="stat-title">INSTRUTORES</p>
+                    <h3>Colocar quantidade aqui (Banco de Dados)</h3>
+                    <p class="stat-subtitle">Total de Instrutores</p>
+                </div>
+                <div class="stat-card">
+                    <p class="stat-title">AULAS DO DIA</p>
+                    <h3 style="color: #f87171;">Colocar quantidade aqui (Banco de Dados)</h3>
+                </div>
+                <div class="stat-card">
+                    <p class="stat-title">NOVOS ALUNOS</p>
+                    <h3 style="color: #f87171;">Colocar quantidade aqui (Banco de Dados)</h3>
+                    <p class="stat-subtitle">Total de Novos Alunos do Mês</p>
+                </div>
+            </div>
+            </div>
+            </div>
+        </section>
+
+        <!-- VISÃO: ALUNOS -->
+        <section id="view-alunos" class="view-section">
+            <header class="view-header">
+                <h1>Gerenciamento de Alunos</h1>
+                <p>Lista geral de alunos matriculados.</p>
+            </header>
+            <div class="cadastro">
+                <button class="btn-cadastrar">Cadastrar Aluno</button>
+            </div>
+            <p>Fazer com que a pessoa clique no botão e apareça uma "aba" em que o adm consiga colocar os dados do aluno
+                e criar o acesso, para o aluno entrar na conta (tipo o UNIPAM). Dados necessários do Aluno: Nome,
+                modalidade, etc. Dados para criar para o usuário: nome de usuário, senha</p>
+            <br>
+            <p>Quando o Adm terminar de cadastrar, precisa aparecer a pessoa cadastrada aqui nessa aba</p>
+            <br>
+            <p>Chatgpt sugeriu isso:</p>
+            <ul style="list-style: circle;">
+                <li>Cadastrar novo aluno.</li>
+                <li>Editar informações cadastrais.</li>
+                <li>Consultar alunos cadastrados.</li>
+                <li>Visualizar histórico de presença.</li>
+                <li>Consultar situação das mensalidades.</li>
+                <li>Ativar, inativar ou excluir cadastro.</li>
+                <li>Pesquisar aluno pelo nome ou CPF.</li>
+            </ul>
+        </section>
+
+        <!-- VISÃO: INSTRUTORES -->
+        <section id="view-instrutores" class="view-section">
+            <header class="view-header">
+                <h1>Gerenciamento de Instrutores</h1>
+                <p>Lista geral de instrutores.</p>
+            </header>
+            <div class="cadastro">
+                <button class="btn-cadastrar">Cadastrar Instrutor</button>
+            </div>
+            <p>Fazer com que a pessoa clique no botão e apareça uma "aba" em que o adm consiga colocar os dados do
+                instrutor
+                e criar o acesso, para o instrutor entrar na conta (tipo o UNIPAM). Dados necessários do Instrutor:
+                Nome,
+                modalidade, etc. Dados para criar para o usuário: nome de usuário, senha</p>
+            <br>
+            <p>Quando o Adm terminar de cadastrar, precisa aparecer a pessoa cadastrada aqui nessa aba</p>
+            <br>
+            <p>Chatgpt sugeriu isso:</p>
+            <ul style="list-style: circle;">
+                <li>Cadastrar novo instrutor.</li>
+                <li>Editar informações pessoais.</li>
+                <li>Consultar instrutores cadastrados.</li>
+                <li>Definir modalidades e especialidades.</li>
+                <li>Consultar aulas atribuídas.</li>
+                <li>Ativar ou inativar instrutores.</li>
+            </ul>
+        </section>
+
+
+        <!-- VISÃO: AULAS -->
+        <section id="view-aulas" class="view-section">
+            <header class="view-header">
+                <h1>Gerenciamento de Aulas</h1>
+                <p>Análise geral das aulas.</p>
+            </header>
+                        <div class="cadastro">
+                <button class="btn-cadastrar">Cadastrar Aulas</button>
+            </div>
+            <p>Chatgpt sugeriu isso:</p>
+            <ul style="list-style: circle;">
+                <li>Criar aulas particulares.</li>
+                <li>Criar aulas coletivas.</li>
+                <li>Definir data e horário.</li>
+                <li>Vincular instrutor responsável.</li>
+                <li>Consultar alunos inscritos.</li>
+                <li>Ativar ou inativar instrutores.</li>
+                <li>Editar ou cancelar aulas.</li>
+                <li>Visualizar calendário de atividades.</li>
+            </ul>
+            </section>
+
+    </main>
+    <script src="js/admin.js"></script>
+</body>
+
+</html>
