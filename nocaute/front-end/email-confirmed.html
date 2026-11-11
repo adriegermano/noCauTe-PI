@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmação de e-mail - noCauTe</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="img/icone-nocaute.png" type="image/x-icon">
+</head>
+<body class="login-body">
+    <!-- A mesma tela cuida do link de confirmação e do convite de instrutor. -->
+    <main class="login-container">
+        <div class="login-header">
+            <h1>Confirmação de e-mail</h1>
+            <p id="confirmation-message" role="status" aria-live="polite">
+                Verificando seu link de confirmação...
+            </p>
+        </div>
+        <!-- Só aparece em convite: cada pessoa escolhe a própria senha. -->
+        <form id="invite-password-form" class="login-form" hidden>
+            <div class="form-group">
+                <label for="invite-password">Crie sua senha</label>
+                <input id="invite-password" type="password" minlength="6" autocomplete="new-password" required>
+            </div>
+            <div class="form-group">
+                <label for="invite-password-confirm">Confirme sua senha</label>
+                <input id="invite-password-confirm" type="password" minlength="6" autocomplete="new-password" required>
+            </div>
+            <button id="invite-password-submit" class="btn btn-primary btn-block" type="submit">Definir senha</button>
+        </form>
+        <!-- O script mostra o caminho de volta quando o link dá zebra. -->
+        <a id="confirmation-link" class="back-link" href="login.html" hidden>Voltar ao login</a>
+    </main>
+    <script src="js/email-confirmed.js"></script>
+</body>
+</html>
