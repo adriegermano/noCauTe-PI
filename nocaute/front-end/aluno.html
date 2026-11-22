@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>noCauTe - Centro de Treinamento</title>
+    <!-- Reaproveitamos as variáveis globais -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link rel="shortcut icon" href="img/icone-nocaute.png" type="image/x-icon">
+<!-- Esconde o painel até o servidor conferir quem entrou. -->
+<style>.auth-pending { visibility: hidden; }</style>
+</head>
+
+<body class="dashboard-body auth-pending">
+
+    <!-- Menu Lateral -->
+    <aside class="sidebar" id="sidebar">
+        <div>
+            <div class="sidebar-header">
+                <img src="img/logo-nocaute.png" alt="" class="logo">
+            </div>
+        </div>
+        <nav class="sidebar-nav">
+            <button class="nav-item active" data-target="view-inicio">
+                <img src="img/svg/icon-inicio.png" alt="" class="icon-sidebar" style="margin-top: 0.1px">
+                Início
+            </button>
+            <button class="nav-item" data-target="view-horarios">
+                <img src="img/svg/icon-aulas.png" alt="" class="icon-sidebar">
+                Aulas & Horários
+            </button>
+            <button class="nav-item" data-target="view-agenda">
+                <img src="img/svg/icon-agenda.png" alt="" class="icon-sidebar">
+                Minha Agenda
+            </button>
+            <button class="nav-item" data-target="view-presencas">
+                <img src="img/svg/icon-presenca.png" alt="" class="icon-sidebar">
+                Minhas Presenças
+            </button>
+            <button class="nav-item" data-target="view-plano">
+                <img src="img/svg/icon-plano.png" alt="" class="icon-sidebar">
+                Meu Plano
+            </button>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="login.html" class="nav-item btn-logout">
+                <img src="img/svg/icon-sair.png" alt="" class="icon-sidebar">
+                Sair
+            </a>
+        </div>
+    </aside>
+
+    <!--Cabeçalho -->
+    <div class="cabecalho">
+        <div class="info-cabecalho">
+            <div id="area">
+                <p style="font-weight: 700;">Área do Aluno</p>
+                <p class="name-academia">CT Fabiano Mineiro</p>
+            </div>
+            <div id="perfil">
+                <p id="perfil-nome">Aluno</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Conteúdo Principal -->
+    <main class="dashboard-main">
+        <!-- VISÃO: INÍCIO -->
+        <section id="view-inicio" class="view-section active">
+            <header class="view-header">
+                <p>Bem-vindo(a), </p>
+                <h3 id="boas-vindas-nome">Aluno</h3>
+            </header>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <p class="stat-title">PLANO</p>
+                    <h3 id="student-plan-name">—</h3>
+                    <p class="stat-subtitle" id="student-plan-price">Carregando plano...</p>
+                </div>
+                <div class="stat-card">
+                    <p class="stat-title">AULAS RESERVADAS</p>
+                    <h3 id="stat-reservadas">0</h3>
+                    <p class="stat-subtitle">próximos 7 dias</p>
+                </div>
+                <div class="stat-card">
+                    <p class="stat-title">FREQUÊNCIA</p>
+                    <h3 id="student-attendance-rate">—</h3>
+                    <p class="stat-subtitle">últimos 14 registros</p>
+                </div>
+                <div class="stat-card">
+                    <p class="stat-title">PRESENÇAS</p>
+                    <h3 id="student-attendance-count">—</h3>
+                    <p class="stat-subtitle">presenças registradas</p>
+                </div>
+            </div>
+
+            <div class="dashboard-panels">
+                <div class="panel">
+                    <h3>Minhas próximas aulas</h3>
+                    <div id="proximas-aulas-container" class="empty-state">
+                        <p>Carregando suas reservas...</p>
+                        <button class="btn btn-outline btn-go-horarios">Ver horários disponíveis</button>
+                    </div>
+                </div>
+                <div class="panel">
+                    <h3>Grade dos próximos dias</h3>
+                    <ul class="grade-list" id="upcoming-schedule"></ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- VISÃO: AULAS E HORÁRIOS -->
+        <section id="view-horarios" class="view-section">
+            <header class="view-header">
+                <h1>Marcar Aula</h1>
+                <p>Escolha o dia e reserve sua vaga</p>
+            </header>
+
+            <button id="refresh-student-sessions" class="btn btn-outline" type="button">Atualizar aulas</button>
+            <div class="date-selector" aria-label="Filtrar aulas por dia"></div>
+            <div class="filters" aria-label="Filtrar aulas por modalidade"></div>
+
+            <h3 class="day-title">Carregando horários...</h3>
+
+            <div class="classes-list">
+                <p class="classes-empty">Buscando aulas cadastradas...</p>
+            </div>
+        </section>
+
+        <!-- VISÃO: MINHA AGENDA -->
+        <section id="view-agenda" class="view-section">
+            <header class="view-header">
+                <h1>Minha Agenda</h1>
+                <p><span id="agenda-count">0</span> aula(s) reservada(s).</p>
+            </header>
+
+            <div id="agenda-list" class="agenda-list">
+                <!-- Preenchido via JS -->
+                <div class="empty-state" id="agenda-empty">
+                    <img src="img/svg/icon-aula-nao-agendada.png" alt="">
+                    <p>Nenhuma aula reservada ainda.</p>
+                    <button class="btn btn-primary btn-go-horarios">Ver horários</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- VISÃO: MINHAS PRESENÇAS -->
+        <section id="view-presencas" class="view-section">
+            <header class="view-header">
+                <h1>Minhas Presenças</h1>
+                <p>Últimos 14 registros.</p>
+            </header>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <p class="stat-title">PRESENÇAS</p>
+                    <h3 id="attendance-present-count">—</h3>
+                    <p class="stat-subtitle">registros de presença</p>
+                </div>
+                <div class="stat-card">
+                    <p class="stat-title">FALTAS</p>
+                    <h3 id="attendance-missed-count">—</h3>
+                </div>
+                <div class="stat-card">
+                    <p class="stat-title">APROVEITAMENTO</p>
+                    <h3 id="attendance-percentage">—</h3>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>DATA</th>
+                            <th>TURMA</th>
+                            <th>HORÁRIO</th>
+                            <th>STATUS</th>
+                        </tr>
+                    </thead>
+                    <tbody id="attendance-body"><tr><td colspan="4">Carregando presenças...</td></tr></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- VISÃO: MEU PLANO -->
+        <section id="view-plano" class="view-section">
+            <header class="view-header">
+                <h1>Meu Plano</h1>
+                <p>Informações do seu plano atual.</p>
+            </header>
+
+            <div class="panel student-membership-card">
+                <h2 id="membership-name">Carregando plano...</h2>
+                <p id="membership-description"></p>
+                <p id="membership-period"></p>
+            </div>
+
+            <h3 class="mt-2">Faturas</h3>
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>VENCIMENTO</th>
+                            <th>VALOR</th>
+                            <th>MÉTODO</th>
+                            <th>STATUS</th>
+                        </tr>
+                    </thead>
+                    <tbody id="payments-body"><tr><td colspan="4">Carregando faturas...</td></tr></tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Confere o acesso antes do script antigo carregar os dados do painel. -->
+    <script src="js/auth-session.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+
+</html>

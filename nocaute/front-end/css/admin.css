@@ -1,0 +1,193 @@
+/* Cartões e tabelas da área de administração. */
+.admin-main {
+    padding: 1.5rem 2rem 3rem;
+}
+
+.admin-section {
+    max-width: 1180px;
+    margin: 0 auto 3rem;
+    scroll-margin-top: 1.5rem;
+}
+
+.admin-section .view-header h1 {
+    margin: 0.8rem 0 1rem;
+    color: #242424;
+}
+
+.admin-card {
+    margin: 1.5rem 0;
+    padding: 1.5rem;
+    color: #242424;
+    background: #fff;
+    border: 1px solid #e2e3e3;
+    border-radius: 10px;
+    box-shadow: 0 4px 16px rgba(36, 36, 36, 0.04);
+}
+
+.admin-card h2 {
+    margin: 0 0 1rem;
+    font-size: 1.15rem;
+}
+
+.admin-card > p,
+.admin-list-heading p,
+.admin-form-help {
+    color: #6d6967;
+    font-size: 0.9rem;
+}
+
+/* Indicadores principais, para bater o olho sem abrir cinco planilhas. */
+.admin-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.admin-stat-card {
+    display: grid;
+    gap: 0.6rem;
+    padding: 1.2rem 1.35rem;
+    background: #fff;
+    border: 1px solid #e2e3e3;
+    border-left: 4px solid #e1a700;
+    border-radius: 9px;
+}
+
+.admin-stat-card span {
+    color: #6d6967;
+    font-size: 0.85rem;
+}
+
+.admin-stat-card strong {
+    color: #242424;
+    font-size: 1.8rem;
+}
+
+.admin-list-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.admin-list-heading h2,
+.admin-list-heading p {
+    margin: 0;
+}
+
+.admin-list-heading p {
+    margin-top: 0.4rem;
+}
+
+/* Formulários de aula, horário e convite. */
+.admin-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    gap: 1.25rem;
+}
+
+.admin-form {
+    display: grid;
+    gap: 0.7rem;
+}
+
+.admin-form label {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.admin-form input,
+.admin-form select,
+.session-instructor-select {
+    width: 100%;
+    min-height: 44px;
+    padding: 0.65rem 0.8rem;
+    border: 1px solid #c9c9c9;
+    border-radius: 6px;
+    background-color: #fff;
+    color: #242424;
+    font: inherit;
+}
+
+.admin-field-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.admin-field-row > div {
+    display: grid;
+    gap: 0.7rem;
+}
+
+.admin-form button {
+    justify-self: start;
+    margin-top: 0.5rem;
+}
+
+.admin-form-help {
+    margin: 0.2rem 0;
+}
+
+.admin-message {
+    position: sticky;
+    top: 0.5rem;
+    z-index: 2;
+    margin: 1rem 0;
+    padding: 0.85rem 1rem;
+    color: #242424;
+    background: #fff7d6;
+    border-left: 4px solid #e1a700;
+    border-radius: 5px;
+}
+
+.admin-message[data-type="error"] {
+    background: #fff0ef;
+    border-left-color: #b42318;
+}
+
+.admin-message[data-type="success"] {
+    background: #ecfdf3;
+    border-left-color: #16803c;
+}
+
+/* Seletor de instrutor usado diretamente na lista de horários. */
+.admin-empty {
+    padding: 1rem;
+    color: #5b5856;
+}
+
+.session-instructor-select {
+    min-width: 170px;
+    min-height: 38px;
+    padding: 0.4rem 0.55rem;
+}
+
+.invite-form {
+    max-width: 620px;
+}
+
+@media (max-width: 900px) {
+    .admin-form-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .admin-main {
+        margin-left: 0;
+        padding: 1rem;
+    }
+
+    .admin-list-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .admin-stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}

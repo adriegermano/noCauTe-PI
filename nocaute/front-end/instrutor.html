@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>noCauTe - Centro de Treinamento</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link rel="shortcut icon" href="img/icone-nocaute.png" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Esconde o painel até o servidor conferir quem entrou. -->
+    <style>.auth-pending { visibility: hidden; }</style>
+
+</head>
+
+<body class="dashboard-body auth-pending">
+
+    <!-- Menu Lateral -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <img src="img/logo-nocaute.png" alt="" class="logo">
+        </div>
+        <nav class="sidebar-nav">
+            <button class="nav-item active" data-target="view-dashboard">
+                <img src="img/svg/icon-inicio.png" alt="" class="icon-sidebar">
+                Início
+            </button>
+            <button class="nav-item" data-target="view-alunos">
+                <img src="img/svg/icon-alunos.png" alt="" class="icon-sidebar">
+                Alunos
+            </button>
+            <button class="nav-item" data-target="view-aulas">
+                <img src="img/svg/icon-aulas.png" alt="" class="icon-sidebar">
+                Aulas de hoje
+            </button>
+            <button class="nav-item" data-target="view-turmas">
+                <img src="img/svg/icon-turmas.png" alt="" class="icon-sidebar">
+                Turmas
+            </button>
+            <button class="nav-item" data-target="view-presencas">
+                <img src="img/svg/icon-presenca.png" alt="" class="icon-sidebar">
+                Presenças
+            </button>
+            <button class="nav-item" data-target="view-relatorios">
+                <img src="img/svg/icon-relatorio.png" alt="" class="icon-sidebar">
+                Relatórios
+            </button>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="login.html" class="nav-item btn-logout">
+                <img src="img/svg/icon-sair.png" alt="" class="icon-sidebar">
+                Sair
+            </a>
+        </div>
+    </aside>
+
+    <!--Cabeçalho -->
+    <div class="cabecalho">
+        <div class="info-cabecalho">
+            <div id="area">
+                <p style="font-weight: 700;">Área do Instrutor</p>
+                <p class="name-academia">CT Fabiano Mineiro</p>
+            </div>
+            <div id="perfil">
+                <p id="perfil-nome">Instrutor</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Conteúdo Principal -->
+    <main class="dashboard-main">
+
+        <!-- VISÃO: DASHBOARD -->
+        <section id="view-dashboard" class="view-section active">
+            <header class="view-header">
+                <p>Bem-vindo(a), </p>
+                <h3 id="boas-vindas-nome">Instrutor</h3>
+            </header>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <p class="stat-title">AULAS HOJE</p>
+                    <h3 id="metric-aulas-hoje">0</h3>
+                    <p class="stat-subtitle">Aulas atribuídas</p>
+                </div>
+                <div class="stat-card">
+                    <p class="stat-title">ALUNOS ESPERADOS</p>
+                    <h3 id="metric-alunos-hoje">0</h3>
+                    <p class="stat-subtitle">Total do dia</p>
+                </div>
+                <div class="stat-card">
+                    <p class="stat-title">CHAMADAS PENDENTES</p>
+                    <h3 id="metric-chamadas-pendentes" style="color: #f87171;">0</h3>
+                    <p class="stat-subtitle">Aulas já iniciadas</p>
+                </div>
+            </div>
+
+            <div class="dashboard-panels">
+                <div class="panel">
+                    <h3>Agenda Diária</h3>
+                    <ul class="grade-list" id="agenda-instrutor"></ul>
+                </div>
+                <div class="chart-card">
+                    <h3 class="chart-title">Presenças por dia da semana</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="chartPresencas1"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VISÃO: ALUNOS -->
+        <section id="view-alunos" class="view-section">
+            <header class="view-header">
+                <h1>Gerenciamento de Alunos</h1>
+                <p>Alunos com reserva em uma das suas aulas.</p>
+            </header>
+
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>NOME</th>
+                            <th>PLANO</th>
+                            <th>STATUS</th>
+                        </tr>
+                    </thead>
+                    <tbody id="lista-alunos"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- VISÃO: AULAS DE HOJE -->
+        <section id="view-aulas" class="view-section">
+            <header class="view-header">
+                <h1>Aulas</h1>
+                <p id="data-aulas"></p>
+            </header>
+
+            <div class="classes-list" id="lista-aulas"></div>
+        </section>
+
+        <!-- VISÃO: TURMAS -->
+        <section id="view-turmas" class="view-section">
+            <header class="view-header">
+                <h1>Minhas Turmas</h1>
+                <p>Horários regulares atribuídos a você.</p>
+            </header>
+            <div class="plans-grid-aulas" id="lista-turmas"></div>
+        </section>
+
+        <!-- VISÃO: PRESENÇAS (CHAMADA) -->
+        <section id="view-presencas" class="view-section">
+            <header class="view-header">
+                <h1>Chamada</h1>
+                <p>Selecione uma aula iniciada para consultar e salvar a chamada.</p>
+                <div class="class-filters" id="filtros-chamada"></div>
+            </header>
+
+            <div class="table-responsive">
+                <table class="data-table" id="tabela-chamada">
+                    <thead>
+                        <tr>
+                            <th>ALUNO</th>
+                            <th>STATUS DE PRESENÇA</th>
+                        </tr>
+                    </thead>
+                    <tbody id="corpo-chamada"></tbody>
+                </table>
+            </div>
+            <br>
+            <button class="btn btn-primary" id="btn-salvar-chamada" disabled>Salvar Chamada</button>
+        </section>
+
+        <!-- VISÃO: RELATÓRIOS -->
+        <section id="view-relatorios" class="view-section">
+            <header class="view-header">
+                <h1>Relatórios</h1>
+                <p>Visão geral de desempenho.</p>
+            </header>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <h3 class="stat-label">PRESENÇA MÉDIA</h3>
+                    <h2 class="stat-number" id="report-presenca">0%</h2>
+                    <p class="stat-desc">últimos 30 dias</p>
+                </div>
+
+                <div class="stat-box">
+                    <h3 class="stat-label">OCUPAÇÃO MÉDIA</h3>
+                    <h2 class="stat-number" id="report-ocupacao">0%</h2>
+                    <p class="stat-desc">das turmas</p>
+                </div>
+
+                <div class="stat-box">
+                    <h3 class="stat-label">NOVOS ALUNOS</h3>
+                    <h2 class="stat-number" id="report-novos-alunos">0</h2>
+                    <p class="stat-desc">no mês</p>
+                </div>
+            </div>
+
+            <div class="charts-container">
+                <!-- Gráfico 1: Ocupação por turma -->
+                <div class="chart-card">
+                    <h3 class="chart-title">Ocupação por turma (%)</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="chartOcupacao"></canvas>
+                    </div>
+                </div>
+
+                <!-- Gráfico 2: Presenças por dia da semana -->
+                <div class="chart-card">
+                    <h3 class="chart-title">Presenças por dia da semana</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="chartPresencas2"></canvas>
+                    </div>
+                </div>
+
+                <!-- Gráfico 3: Alunos por modalidade -->
+                <div class="chart-card">
+                    <h3 class="chart-title">Alunos por modalidade</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="chartModalidade"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Confere o acesso antes de carregar os dados do painel. -->
+    <script src="js/auth-session.js"></script>
+    <script src="js/instrutor.js"></script>
+</body>
+
+</html>

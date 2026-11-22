@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -21,7 +21,12 @@
         <div class="login-tabs profile-tabs" aria-label="Tipo de perfil">
             <button class="tab-btn active" type="button" id="btnPerfilAluno" data-type="aluno">Aluno</button>
             <button class="tab-btn" type="button" id="btnPerfilInstrutor" data-type="instrutor">Instrutor</button>
+            <!-- A aba só escolhe a porta; quem confere se a chave serve é o servidor. -->
+            <button class="tab-btn" type="button" id="btnPerfilAdmin" data-type="admin">Admin</button>
         </div>
+        <!-- Recados de login e confirmação aparecem aqui, sem caça ao tesouro. -->
+        <p id="auth-message" class="help-text" role="status" aria-live="polite" hidden></p>
+        <button type="button" id="btnResendConfirmation" class="link-btn" hidden>Reenviar e-mail de confirmação</button>
 
         <!-- Formulário de Login -->
         <form id="loginForm" class="login-form">
@@ -36,7 +41,7 @@
             <button type="submit" id="btnSubmitLogin" class="btn btn-primary btn-block">Entrar como aluno</button>
             
             <!-- Botão de alternância no lugar do texto de protótipo -->
-            <p class="help-text">
+            <p class="help-text" id="register-prompt">
                 Não tem uma conta? <button type="button" id="btnGoToRegister" class="link-btn">Criar conta</button>
             </p>
         </form>
@@ -53,7 +58,8 @@
             </div>
             <div class="form-group">
                 <label for="reg-senha">Senha</label>
-                <input type="password" id="reg-senha" placeholder="Crie uma senha" required>
+                <!-- Evita senha curtinha que nem um cadeado de brinquedo. -->
+                <input type="password" id="reg-senha" placeholder="Crie uma senha" minlength="6" required>
             </div>
             <div class="form-group">
                 <label for="reg-confirmar">Confirmar Senha</label>

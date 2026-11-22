@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel administrativo - noCauTe</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="img/icone-nocaute.png" type="image/x-icon">
+    <style>.auth-pending { visibility: hidden; }</style>
+</head>
+<body class="dashboard-body auth-pending">
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <img src="img/logo-nocaute.png" alt="noCauTe" class="logo">
+        </div>
+        <nav class="sidebar-nav" aria-label="Navegação administrativa">
+            <a class="nav-item active" href="#dashboard" aria-current="page">Visão geral</a>
+            <a class="nav-item" href="#agenda-admin">Aulas e horários</a>
+            <a class="nav-item" href="#equipe-admin">Instrutores</a>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="login.html" class="nav-item btn-logout">Sair</a>
+        </div>
+    </aside>
+
+    <header class="cabecalho">
+        <div class="info-cabecalho">
+            <div id="area">
+                <p style="font-weight: 700;">Painel Administrativo</p>
+                <p class="name-academia">CT Fabiano Mineiro</p>
+            </div>
+            <div id="perfil"><p id="perfil-nome">Administrador</p></div>
+        </div>
+    </header>
+
+    <main class="dashboard-main admin-main">
+        <p id="admin-message" class="admin-message" role="status" aria-live="polite" hidden></p>
+
+        <!-- Indicadores e reservas chegam direto das tabelas do Supabase. -->
+        <section id="dashboard" class="admin-section admin-view">
+            <header class="view-header">
+                <p>Resumo da academia</p>
+                <h1>Visão geral</h1>
+                <p>Indicadores atualizados com os dados do Supabase.</p>
+            </header>
+            <div class="admin-stats-grid">
+                <article class="admin-stat-card"><span>Alunos ativos</span><strong id="metric-students">—</strong></article>
+                <article class="admin-stat-card"><span>Instrutores ativos</span><strong id="metric-instructors">—</strong></article>
+                <article class="admin-stat-card"><span>Aulas cadastradas</span><strong id="metric-classes">—</strong></article>
+                <article class="admin-stat-card"><span>Próximas aulas</span><strong id="metric-sessions">—</strong></article>
+                <article class="admin-stat-card"><span>Vagas reservadas</span><strong id="metric-reservations">—</strong></article>
+            </div>
+
+            <section class="admin-card">
+                <div class="admin-list-heading">
+                    <div>
+                        <h2>Próximas aulas</h2>
+                        <p>Instrutor responsável e alunos inscritos em cada horário.</p>
+                    </div>
+                    <button id="refresh-dashboard" class="btn btn-outline" type="button">Atualizar dados</button>
+                </div>
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead><tr><th>AULA</th><th>DATA E HORA</th><th>ALUNOS</th><th>INSTRUTOR</th></tr></thead>
+                        <tbody id="sessions-body"><tr><td colspan="4">Carregando dados...</td></tr></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="admin-card">
+                <h2>Reservas recentes</h2>
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead><tr><th>ALUNO</th><th>AULA</th><th>HORÁRIO</th><th>RESERVA</th></tr></thead>
+                        <tbody id="reservations-body"><tr><td colspan="4">Carregando dados...</td></tr></tbody>
+                    </table>
+                </div>
+            </section>
+        </section>
+
+        <!-- Primeiro se cadastra a aula; depois se agenda uma sessão com instrutor. -->
+        <section id="agenda-admin" class="admin-section admin-view">
+            <header class="view-header">
+                <p>Grade da academia</p>
+                <h1>Aulas e horários</h1>
+                <p>Cadastre modalidades, aulas e horários com instrutor responsável.</p>
+            </header>
+
+            <div class="admin-form-grid">
+                <form id="class-form" class="admin-card admin-form">
+                    <h2>Cadastrar aula</h2>
+                    <label for="class-modality">Modalidade</label>
+                    <select id="class-modality" required><option value="">Carregando modalidades...</option></select>
+                    <label for="class-name">Nome da aula</label>
+                    <input id="class-name" type="text" maxlength="120" required>
+                    <label for="class-level">Nível</label>
+                    <input id="class-level" type="text" maxlength="80" value="Todos os níveis">
+                    <div class="admin-field-row">
+                        <div><label for="class-duration">Duração (min)</label><input id="class-duration" type="number" min="1" max="360" value="60" required></div>
+                        <div><label for="class-capacity">Vagas</label><input id="class-capacity" type="number" min="1" value="20" required></div>
+                    </div>
+                    <label for="class-location">Local</label>
+                    <input id="class-location" type="text" maxlength="120" placeholder="Ex.: Ringue">
+                    <button class="btn btn-primary" type="submit">Cadastrar aula</button>
+                </form>
+
+                <form id="session-form" class="admin-card admin-form">
+                    <h2>Agendar horário</h2>
+                    <label for="session-class">Aula</label>
+                    <select id="session-class" required><option value="">Cadastre uma aula primeiro</option></select>
+                    <label for="session-instructor">Instrutor</label>
+                    <select id="session-instructor" required><option value="">Carregando instrutores...</option></select>
+                    <label for="session-start">Data e hora</label>
+                    <input id="session-start" type="datetime-local" required>
+                    <p class="admin-form-help">Duração, local e capacidade serão preenchidos com os dados da aula.</p>
+                    <button class="btn btn-primary" type="submit">Agendar aula</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Convites criam acessos de instrutor, sem cadastro privilegiado aberto. -->
+        <section id="equipe-admin" class="admin-section admin-view">
+            <header class="view-header">
+                <p>Gestão de acesso</p>
+                <h1>Instrutores</h1>
+                <p>Convide instrutores. Eles receberão um link seguro para definir a própria senha.</p>
+            </header>
+
+            <form id="invite-form" class="admin-card admin-form invite-form">
+                <h2>Convidar instrutor</h2>
+                <label for="instructor-name">Nome completo</label>
+                <input id="instructor-name" name="name" type="text" maxlength="160" autocomplete="name" required>
+                <label for="instructor-email">E-mail</label>
+                <input id="instructor-email" name="email" type="email" maxlength="254" autocomplete="email" required>
+                <button id="invite-submit" class="btn btn-primary" type="submit">Enviar convite</button>
+            </form>
+
+            <section class="admin-card instructor-list" aria-labelledby="instructor-list-heading">
+                <div class="admin-list-heading">
+                    <h2 id="instructor-list-heading">Instrutores cadastrados</h2>
+                    <button id="refresh-instructors" class="btn btn-outline" type="button">Atualizar lista</button>
+                </div>
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead><tr><th>NOME</th><th>E-MAIL</th><th>STATUS</th><th>CADASTRO</th></tr></thead>
+                        <tbody id="instructors-body"><tr><td colspan="4">Carregando instrutores...</td></tr></tbody>
+                    </table>
+                </div>
+            </section>
+        </section>
+    </main>
+
+    <script src="js/auth-session.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>
